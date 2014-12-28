@@ -1,0 +1,16 @@
+<wpml-config>
+    <custom-types>
+        <custom-type translate="1">jaw-faq</custom-type>
+        <custom-type translate="1">jaw-portfolio</custom-type>
+        <custom-type translate="1">jaw-testimonial</custom-type>
+        <custom-type translate="1">jaw-team</custom-type>
+    </custom-types>    
+    <taxonomies>
+        <taxonomy translate="1">jaw-faq-category</taxonomy>
+        <taxonomy translate="1">jaw-portfolio-category</taxonomy>
+        <taxonomy translate="1">jaw-testimonial-category</taxonomy>
+        <taxonomy translate="1">jaw-team-category</taxonomy>
+    </taxonomies>    
+</wpml-config>
+
+

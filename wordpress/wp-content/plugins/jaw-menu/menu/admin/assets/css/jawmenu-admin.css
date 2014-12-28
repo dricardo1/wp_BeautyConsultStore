@@ -1,0 +1,31 @@
+.menu-item .jaw-menu-custom-item {display: none;}
+
+.menu-item-depth-0 .zero,
+.menu-item-depth-0 .zero-plus,
+.menu-item-depth-1 .zero-plus,
+.menu-item-depth-2 .zero-plus,
+.menu-item-depth-3 .zero-plus,
+.menu-item-depth-4 .zero-plus,
+.menu-item-depth-5 .zero-plus {display: block;}
+
+.menu-item-depth-1 .one,
+.menu-item-depth-1 .one-plus,
+.menu-item-depth-2 .one-plus,
+.menu-item-depth-3 .one-plus,
+.menu-item-depth-4 .one-plus,
+.menu-item-depth-5 .one-plus {display: block;}
+
+.menu-item-depth-2 .two,
+.menu-item-depth-2 .two-plus,
+.menu-item-depth-3 .two-plus,
+.menu-item-depth-4 .two-plus,
+.menu-item-depth-5 .two-plus {display: block}
+
+.menu-item-depth-3 .three, 
+.menu-item-depth-3 .three-plus,
+.menu-item-depth-4 .three-plus,
+.menu-item-depth-5 .three-plus {display: block;}
+
+.menu-item-depth-4 .four,
+.menu-item-depth-4 .four-plus,
+.menu-item-depth-5 .four-plus {display: block;}

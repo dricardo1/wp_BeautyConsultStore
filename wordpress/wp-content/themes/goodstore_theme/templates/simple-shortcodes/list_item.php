@@ -1,0 +1,1 @@
+<li><i class="<?php echo jaw_template_get_var('icon','icon-circle-small'); ?>"></i><?php echo jaw_template_get_var('list',''); ?></li>

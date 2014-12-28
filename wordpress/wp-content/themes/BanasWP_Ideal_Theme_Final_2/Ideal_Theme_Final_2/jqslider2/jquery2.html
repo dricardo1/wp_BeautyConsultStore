@@ -1,0 +1,232 @@
+<html>
+<head>
+<title>JQuery Vertical Menu</title>
+<link type="text/css" href="css/overcast/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+		<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+		
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+
+<style>
+	.demo {
+		width: 480px;
+	}
+	#demo-frame > div.demo { padding: 10px !important; }
+	.scroll-pane { overflow: auto; width: 99%; float:left; }
+	
+	.scroll-content { width: 1930px; float: left; background: #FFF;}
+	
+	.scroll-content-item { width: 150px; height: 215px; float: left; margin: 10px; margin-right: 0px; font: bold 11px 'PT Sans',arial,sans-serif; text-align: center; background: #FFF; border: 0px;}
+	
+	* html .scroll-content-item { display: inline; } /* IE6 float double margin bug */
+	.scroll-bar-wrap { clear: left; padding: 0 4px 0 2px; margin: 0 -1px -1px -1px; }
+	.scroll-bar-wrap .ui-slider { background: none; border:0; height: 2em; margin: 0 auto;  }
+	.scroll-bar-wrap .ui-handle-helper-parent { position: relative; width: 100%; height: 100%; margin: 0 auto; }
+	.scroll-bar-wrap .ui-slider-handle { top:.2em; height: 1.5em; }
+	.scroll-bar-wrap .ui-slider-handle .ui-icon { margin: -8px auto 0; position: relative; top: 50%; }
+	
+	.prodImage {
+		border: 1px solid #666;
+		height: 135px;
+		width: 135px;
+	}
+	
+	.theProduct {
+		height: 125px;
+		width: 125px;
+		padding: 5px;
+	}
+	
+	.prodName {
+		position: relative;
+		left: -6px;
+		top: 15px;
+	}
+	
+	.prodName a {
+		text-decoration: none;
+	}
+	
+	.prodMoreInfoBut {
+		background-color: #535353;
+		height: 17px;
+		width: 61px;
+		padding-top: 4px;
+		position: relative;
+		top: 25px;
+	}
+	
+	.prodMoreInfoBut a{
+		text-decoration: none;
+		color: #fff;
+	}
+	
+	.prodMoreInfoBut:hover {
+		background-color: #666;
+	}
+	
+	.prodAddToCartBut {
+		background-color: #3c89b5;
+		height: 17px;
+		width: 71px;
+		padding-top: 4px;
+		position: relative;
+		top: 4px;
+		left: 65px;
+	}
+	
+	.prodAddToCartBut a{
+		text-decoration: none;
+		color: #fff;
+	}
+	
+	.prodAddToCartBut:hover {
+		background-color: #666;
+	}
+	
+	</style>
+	<script>
+	$(function() {
+		//scrollpane parts
+		var scrollPane = $( ".scroll-pane" ),
+			scrollContent = $( ".scroll-content" );
+		
+		//build slider
+		var scrollbar = $( ".scroll-bar" ).slider({
+			slide: function( event, ui ) {
+				if ( scrollContent.width() > scrollPane.width() ) {
+					scrollContent.css( "margin-left", Math.round(
+						ui.value / 100 * ( scrollPane.width() - scrollContent.width() )
+					) + "px" );
+				} else {
+					scrollContent.css( "margin-left", 0 );
+				}
+			}
+		});
+		
+		//append icon to handle
+		var handleHelper = scrollbar.find( ".ui-slider-handle" )
+		.mousedown(function() {
+			scrollbar.width( handleHelper.width() );
+		})
+		.mouseup(function() {
+			scrollbar.width( "100%" );
+		})
+		.append( "<span class='ui-icon ui-icon-grip-dotted-vertical'></span>" )
+		.wrap( "<div class='ui-handle-helper-parent'></div>" ).parent();
+		
+		//change overflow to hidden now that slider handles the scrolling
+		scrollPane.css( "overflow", "hidden" );
+		
+		//size scrollbar and handle proportionally to scroll distance
+		function sizeScrollbar() {
+			var remainder = scrollContent.width() - scrollPane.width();
+			var proportion = remainder / scrollContent.width();
+			var handleSize = scrollPane.width() - ( proportion * scrollPane.width() );
+			scrollbar.find( ".ui-slider-handle" ).css({
+				width: handleSize,
+				"margin-left": -handleSize / 2
+			});
+			handleHelper.width( "" ).width( scrollbar.width() - handleSize );
+		}
+		
+		//reset slider value based on scroll content position
+		function resetValue() {
+			var remainder = scrollPane.width() - scrollContent.width();
+			var leftVal = scrollContent.css( "margin-left" ) === "auto" ? 0 :
+				parseInt( scrollContent.css( "margin-left" ) );
+			var percentage = Math.round( leftVal / remainder * 100 );
+			scrollbar.slider( "value", percentage );
+		}
+		
+		//if the slider is 100% and window gets larger, reveal content
+		function reflowContent() {
+				var showing = scrollContent.width() + parseInt( scrollContent.css( "margin-left" ), 10 );
+				var gap = scrollPane.width() - showing;
+				if ( gap > 0 ) {
+					scrollContent.css( "margin-left", parseInt( scrollContent.css( "margin-left" ), 10 ) + gap );
+				}
+		}
+		
+		//change handle position on window resize
+		$( window ).resize(function() {
+			resetValue();
+			sizeScrollbar();
+			reflowContent();
+		});
+		//init scrollbar size
+		setTimeout( sizeScrollbar, 10 );//safari wants a timeout
+	});
+	</script>
+	
+	</head>
+	<body>
+
+<div class="demo">
+
+<div class="scroll-pane ui-widget ui-widget-header ui-corner-all">
+	<div class="scroll-content">
+		<div class="scroll-content-item ui-widget-header">
+			<div class="prodImage">
+				<img src="./images/Justrite-09100.png" class="theProduct" />
+			</div>
+			
+			<div class="prodName">
+				<a href="#">JUSTRITE 2 GAL OIL HAND OPERATED WASTE CAN</a>
+			</div>
+			
+			<div class="prodMoreInfoBut">
+				<a href="#">MORE INFO</a>
+			</div>
+			
+			<div class="prodAddToCartBut">
+				<a href="#">ADD TO CART</a>
+			</div>
+		</div> <!-- END OF scroll-content-item -->
+		
+		<div class="scroll-content-item ui-widget-header">
+			<div class="prodImage">
+				<img src="./images/Justrite-09100.png" class="theProduct" />
+			</div>
+			
+			<div class="prodName">
+				<a href="#">JUSTRITE 2 GAL OIL HAND OPERATED WASTE CAN</a>
+			</div>
+			
+			<div class="prodMoreInfoBut">
+				<a href="#">MORE INFO</a>
+			</div>
+			
+			<div class="prodAddToCartBut">
+				<a href="#">ADD TO CART</a>
+			</div>
+		</div> <!-- END OF scroll-content-item -->
+		
+		<div class="scroll-content-item ui-widget-header">
+			<div class="prodImage">
+				<img src="./images/Justrite-09100.png" class="theProduct" />
+			</div>
+			
+			<div class="prodName">
+				<a href="#">JUSTRITE 2 GAL OIL HAND OPERATED WASTE CAN</a>
+			</div>
+			
+			<div class="prodMoreInfoBut">
+				<a href="#">MORE INFO</a>
+			</div>
+			
+			<div class="prodAddToCartBut">
+				<a href="#">ADD TO CART</a>
+			</div>
+		</div> <!-- END OF scroll-content-item -->
+		
+	</div>
+	<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
+		<div class="scroll-bar"></div>
+	</div>
+</div>
+
+</div><!-- End demo -->
+
+</body>
+</html>
